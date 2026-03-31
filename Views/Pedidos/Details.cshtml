@@ -1,0 +1,95 @@
+﻿@model AppWebDespachos.Models.Pedido
+
+@{
+    ViewData["Title"] = "Detalles pedido";
+}
+
+<h1>DETALLE</h1>
+<h3 class="fw-bold text-center">PEDIDO N° @Model.Id_pedido</h3>
+<hr />
+<table class="table table-bordered bg-white">
+    <thead class="table-secondary">
+        <tr>
+            <th>Fecha:</th>
+            <th>CUIT:</th>
+            <th>Total:</th>
+            <th>Cliente:</th>
+            <th>Usuario:</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Fecha.ToString("dd/MM/yyyy")</td>
+            <td>@(!string.IsNullOrWhiteSpace(Model.Cuit) ? Model.Cuit : "No especificado")</td>
+            <td>@("$" + Model.Total.ToString("N2"))</td>
+            <td>@(!string.IsNullOrWhiteSpace(Model.Cliente?.Razon_social) ? Model.Cliente.Razon_social : "No disponible")</td>
+            <td>@(Model.Usuario != null ? $"{Model.Usuario.Nombre} {Model.Usuario.Apellido}" : "No disponible")</td>       </tr>
+    </tbody>
+</table>
+
+<hr />
+<h3 class="fw-bold">Detalle</h3>
+<hr />
+
+@if (Model.Detalles != null && Model.Detalles.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Descripción</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var detalle in Model.Detalles)
+            {
+                <tr>
+                    <td>@(detalle.Producto?.Nombre ?? "Producto no encontrado")</td>
+                    <td>
+                        @(detalle.Producto?.Descripcion ?? "Descripción no encontrada")
+                    </td>
+                    <td>@detalle.Cantidad</td>
+                    <td>@("$" + detalle.Precio_unitario.ToString("N2"))</td>
+                    <td>@("$" + detalle.Subtotal.ToString("N2"))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="mt-3 p-3 border rounded bg-light">
+        <p><strong>Usuario que realizó la operación:</strong> @(Model.Usuario != null ? $"{Model.Usuario.Nombre} {Model.Usuario.Apellido}" : "No disponible")</p>
+        <p><strong>Total de productos cargados:</strong> @Model.Detalles.Sum(d => d.Cantidad)</p>
+        <p><strong>Monto total de la venta:</strong> @("$" + Model.Total.ToString("N2"))</p>
+    </div>
+}
+else
+{
+    <p>No hay productos cargados para este pedido.</p>
+}
+
+
+<div class="mt-4 d-flex gap-3">
+
+    @if (Model.Estado == "Pendiente")
+	{
+	
+    <a asp-action="EditarDetalle" asp-controller="DetallePedidos" asp-route-idPedido="@Model.Id_pedido" class="btn btn-secondary">
+        Agregar/Modificar Productos
+    </a> 
+    
+    <a asp-action="Delete" asp-controller="Pedidos" asp-route-id="@Model.Id_pedido" class="btn btn-warning">
+        Deshacer pedido
+    </a>
+
+    <form asp-action="Confirmar" asp-controller="Pedidos" asp-route-id="@Model.Id_pedido" method="post">
+        <button type="submit" class="btn btn-success fw-bold">Confirmar Pedido</button>
+    </form>}
+    else{
+        <a asp-action="Index" asp-controller="Pedidos" class="btn btn-secondary">
+            Volver al listado de pedidos
+        </a>
+    }
+</div>

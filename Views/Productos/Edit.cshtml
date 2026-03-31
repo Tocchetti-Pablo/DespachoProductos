@@ -1,0 +1,57 @@
+﻿@model AppWebDespachos.Models.Producto
+
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<h1>MODIFICACION PRODUCTOS</h1>
+<h3 class="fw-bold text-center">Producto a modificar</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id_producto" />
+            <!--<div class="form-group">
+                <label asp-for="Id_usuario" class="control-label"></label>
+                <select asp-for="Id_usuario" class="form-control" asp-items="ViewBag.Id_usuario"></select>
+                <span asp-validation-for="Id_usuario" class="text-danger"></span>
+            </div>-->
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Stock" class="control-label"></label>
+                <input asp-for="Stock" class="form-control" />
+                <span asp-validation-for="Stock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Precio_unitario" class="control-label"></label>
+                <input asp-for="Precio_unitario" class="form-control" />
+                <span asp-validation-for="Precio_unitario" class="text-danger"></span>
+            </div>
+      
+            <div class="form-group form-check">
+                <input class="form-check-input mt-2" asp-for="Habilitado" disabled />
+                <label class="form-check-label" asp-for="Habilitado"></label>
+            </div>
+
+            <div class="form-group d-flex m-2">
+                <button type="submit" class="btn btn-primary me-1">GUARDAR</button>
+                <a asp-action="Index" class="btn btn-secondary me-1 ">Regresar a la lista de productos</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

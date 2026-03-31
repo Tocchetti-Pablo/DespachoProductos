@@ -1,0 +1,65 @@
+﻿@model AppWebDespachos.Models.Direccion
+
+@{
+    ViewData["Title"] = "Editar dirección";
+}
+
+<h1>MODIFICACION DIRECCIONES</h1>
+<h3 class="fw-bold text-center">Dirección a modificar:</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id_direccion" />
+            <div class="form-group">
+                <label asp-for="Id_cliente" class="control-label"></label>
+                <select asp-for="Id_cliente" class="form-control" asp-items="ViewBag.Id_cliente"></select>
+                <span asp-validation-for="Id_cliente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Calle" class="control-label"></label>
+                <input asp-for="Calle" class="form-control" />
+                <span asp-validation-for="Calle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nro" class="control-label"></label>
+                <input asp-for="Nro" class="form-control" />
+                <span asp-validation-for="Nro" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Piso" class="control-label"></label>
+                <input asp-for="Piso" class="form-control" />
+                <span asp-validation-for="Piso" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dpto" class="control-label"></label>
+                <input asp-for="Dpto" class="form-control" />
+                <span asp-validation-for="Dpto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ciudad" class="control-label"></label>
+                <input asp-for="Ciudad" class="form-control" />
+                <span asp-validation-for="Ciudad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cp" class="control-label"></label>
+                <input asp-for="Cp" class="form-control" />
+                <span asp-validation-for="Cp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Provincia" class="control-label"></label>
+                <input asp-for="Provincia" class="form-control" />
+                <span asp-validation-for="Provincia" class="text-danger"></span>
+            </div>
+            <div class="form-group d-flex m-2">
+                <button type="submit" class="btn btn-primary me-1">GUARDAR</button>
+                <a asp-action="Index" class="btn btn-secondary me-1 ">Regresar a la lista de direcciones</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

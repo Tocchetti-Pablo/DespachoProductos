@@ -1,0 +1,90 @@
+﻿@model IEnumerable<AppWebDespachos.Models.Direccion>
+
+@{
+    ViewData["Title"] = "ABM Direcciones";
+}
+
+<h1>ABM DIRECCIONES</h1>
+
+
+<p class="mt-5 mb-5">
+    <a asp-action="Create" class="btn btn-success">Nueva dirección</a>
+</p>
+<h3 class="fw-bold text-center">LISTA DE DIRECCIONES</h3>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Calle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nro)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Piso)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Dpto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ciudad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cp)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Provincia)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cliente)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Usuario)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Calle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Piso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dpto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ciudad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Provincia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.Cuit)
+                </td>
+                    <td class="text-nowrap">
+                        @($"{item.Usuario.Apellido}, {item.Usuario.Nombre}")
+                    </td>
+                <td>
+                    <div class="d-flex gap-1">
+                            <a asp-action="Edit" asp-route-id="@item.Id_direccion" class="btn btn-warning btn-sm me-1 w-auto">Editar</a>
+                            <a asp-action="Details" asp-route-id="@item.Id_direccion" class="btn btn-secondary btn-sm me-1 w-auto text-white">Ver detalles</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id_direccion" class="btn btn-danger btn-sm w-auto">Eliminar</a>
+                    </div>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>

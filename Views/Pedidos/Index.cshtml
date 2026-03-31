@@ -1,0 +1,86 @@
+﻿@model IEnumerable<AppWebDespachos.Models.Pedido>
+
+@{
+    ViewData["Title"] = "ABM Pedido";
+}
+
+<h1>PEDIDOS</h1>
+
+<p class="mt-5 mb-5">
+    <a asp-action="Create" class="btn btn-success">Nuevo pedido</a>
+</p>
+<form asp-action="Index" method="get" class="mb-4">
+    <div class="row g-2">
+        <div class="col-md-6">
+            <input type="text" name="busquedaUsuario" value="@Context.Request.Query["busquedaUsuario"]" class="form-control" placeholder="Buscar por nombre o apellido del usuario..." />
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-outline-primary w-100">Buscar</button>
+        </div>
+        <div class="col-md-2">
+            <a asp-action="Index" class="btn btn-outline-secondary w-100">Limpiar</a>
+        </div>
+    </div>
+</form>
+
+<h3 class="fw-bold text-center">LISTA DE PEDIDOS</h3>
+
+<div class="table-responsive">
+    <table class="table table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cuit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Total)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Usuario)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cuit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @("$" + item.Total.ToString("N2"))
+                    </td>
+                    <td class="text-nowrap">
+                        @($"{item.Usuario.Apellido}, {item.Usuario.Nombre}")
+                    </td>
+                    <td>
+                        <div class="d-flex gap-1">
+                            <a asp-action="Details" class="btn btn-secondary w-auto" asp-route-id="@item.Id_pedido">Detalles</a>
+                            @if (item.Estado == "Confirmado")
+                            {
+                                <span class="text-success fw-bold">CONFIRMADO</span>
+                            }
+                            else
+                            {
+                                <a asp-action="EditarDetalle" asp-controller="DetallePedidos" asp-route-idPedido="@item.Id_pedido" class="btn btn-warning w-auto">Editar</a>
+                                <span class="text-warning fw-bold">PENDIENTE</span>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,72 @@
+﻿@using AppWebDespachos.ViewModels
+@model AgregarProductosViewModel
+
+@{
+    ViewData["Title"] = "Alta pedido";
+}
+
+<h2>PEDIDO N° @Model.Id_pedido</h2>
+<hr />
+<h3>PASO 1 de 2 => Cargar productos:</h3>
+<form asp-action="Create" method="get" class="mb-4">
+    <input type="hidden" name="idPedido" value="@Model.Id_pedido" />
+    <div class="d-flex gap-2">
+        <input type="text" name="searchQuery" value="@ViewBag.CurrentSearchQuery" class="form-control" placeholder="Buscar por ID de producto" />
+        <button type="submit" class="btn btn-primary">Buscar</button>
+        <a asp-action="Create" asp-route-idPedido="@Model.Id_pedido" class="btn btn-secondary">Limpiar</a>
+    </div>
+</form>
+
+
+<!-- Formulario principal para agregar productos al pedido (envía los datos al POST del controlador) -->
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    <!-- Se mantiene el Id_pedido oculto para el envío del formulario POST -->
+    <input type="hidden" name="Id_pedido" value="@Model.Id_pedido" />
+
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID Producto</th>
+                <th>Producto</th>
+                <th>Descripción</th>
+                <th>Precio Unitario</th>
+                <th>Cantidad</th>
+            </tr>
+        </thead>
+        <tbody id="productTableBody">
+            @for (int i = 0; i < Model.Productos.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @Model.Productos[i].Id_producto
+                        <!-- Los campos ocultos para el ID, Nombre y Precio Unitario son esenciales -->
+                        <!-- para que el controlador los reciba correctamente en el envío del formulario POST. -->
+                        <input type="hidden" name="Productos[@i].Id_producto" value="@Model.Productos[i].Id_producto" />
+                        <input type="hidden" name="Productos[@i].Nombre" value="@Model.Productos[i].Nombre" />
+                        <input type="hidden" name="Productos[@i].Precio_unitario" value="@Model.Productos[i].Precio_unitario" />
+                    </td>
+                    <td>
+                        @Model.Productos[i].Nombre
+                    </td>
+                    <td>
+						@Model.Productos[i].Descripcion
+                    </td>
+                    <td>
+                        @("$" + Model.Productos[i].Precio_unitario.ToString("N2"))
+                    </td>
+                    <td>
+                        <input type="number" name="Productos[@i].Cantidad" class="form-control" min="0" value="0" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group d-flex m-2">
+        <button type="submit" class="btn btn-success m-2">Cargar productos</button>
+        <a asp-controller="Pedidos" asp-action="Index" class="btn btn-secondary m-2">Cancelar</a>
+    </div>
+</form>
+

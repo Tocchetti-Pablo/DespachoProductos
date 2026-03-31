@@ -1,0 +1,44 @@
+﻿@model AppWebDespachos.Models.Producto
+
+@{
+    ViewData["Title"] = Model.Habilitado ? "Inhabilitar Producto" : "Habilitar Producto";
+}
+
+<h1>@(Model.Habilitado ? "Inhabilitar Producto" : "Habilitar Producto")</h1>
+<h3 class="fw-bold text-center">Detalle producto</h3>
+<hr />
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Nombre)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Nombre)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Descripcion)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Descripcion)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Precio_unitario)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Precio_unitario)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Habilitado)</dt>
+        <dd class="col-sm-10">
+            <input asp-for="Habilitado" disabled />
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id_producto" />
+
+        <div class="form-check ">
+            <!-- Checkbox deshabilitado para solo mostrar estado -->
+            <input class="form-check-input" asp-for="Habilitado" disabled />
+            <label class="form-check-label" asp-for="Habilitado">Producto habilitado</label>
+        </div>
+        <h5 class="text @(Model.Habilitado ? "text-danger" : "text-success") fw-bold m-1">
+            @(Model.Habilitado ? "¿Deseás inhabilitar este producto?" : "¿Deseás habilitar este producto?")
+        </h5>
+        <button type="submit" class="btn @(Model.Habilitado ? "btn-danger" : "btn-success")">
+            @(Model.Habilitado ? "Inhabilitar" : "Habilitar")
+        </button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

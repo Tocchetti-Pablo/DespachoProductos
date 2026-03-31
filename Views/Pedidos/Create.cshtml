@@ -1,0 +1,24 @@
+﻿@model AppWebDespachos.Models.Pedido
+
+@{
+    ViewData["Title"] = "Crear Pedido";
+}
+
+<h1>ALTA PEDIDO</h1>
+<h3 class="fw-bold text-center">Cargar nuevo pedido</h3>
+<hr />
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Id_cliente">Seleccionar el cliente</label>
+        <select asp-for="Id_cliente" class="form-control" asp-items="ViewBag.Id_cliente"></select>
+    </div>
+
+    <button type="submit" class="btn btn-primary m-2">Confirmar cliente</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

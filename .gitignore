@@ -1,0 +1,12 @@
+﻿# Archivos de configuración con datos sensibles
+appsettings.json
+appsettings.Development.json
+
+# Carpetas de compilación
+bin/
+obj/
+.vs/
+
+# Archivos de usuario de Visual Studio
+*.user
+*.tmp

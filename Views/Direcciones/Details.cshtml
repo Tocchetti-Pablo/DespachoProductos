@@ -1,0 +1,71 @@
+﻿@model AppWebDespachos.Models.Direccion
+
+@{
+    ViewData["Title"] = "Detalles dirección";
+}
+
+<h1>DATOS DIRECCIÓN</h1>
+<h3 class="fw-bold text-center">Detalles dirección</h3>
+<hr />
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Calle)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Calle)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nro)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nro)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Piso)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Piso)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Dpto)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Dpto)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ciudad)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ciudad)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Cp)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Cp)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Provincia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Provincia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Cliente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Cliente.Cuit)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Usuario)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Usuario.Apellido)
+        </dd>
+    </dl>
+</div>
+<div class="d-flex m-2">
+    <a asp-action="Edit" asp-route-id="@Model?.Id_direccion" class="btn btn-primary me-1">Editar</a>
+    <a asp-action="Index" class="btn btn-secondary me-1">Regresar a la lista de clientes</a>
+</div>

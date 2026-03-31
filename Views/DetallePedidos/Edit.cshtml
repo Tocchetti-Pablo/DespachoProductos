@@ -1,0 +1,41 @@
+﻿@model AppWebDespachos.ViewModels.EditarDetallePedidoViewModel
+@{
+    ViewData["Title"] = "Editar Detalle del Pedido";
+}
+
+<h2>Editar Detalle del Pedido #@Model.Id_pedido</h2>
+
+<form asp-action="EditarDetalle" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id_pedido" />
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio Unitario</th>
+                <th>Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.ProductosDisponibles.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @Model.ProductosDisponibles[i].Nombre
+                        <input type="hidden" asp-for="ProductosDisponibles[@i].Id_producto" />
+                        <input type="hidden" asp-for="ProductosDisponibles[@i].Nombre" />
+                        <input type="hidden" asp-for="ProductosDisponibles[@i].Precio_unitario" />
+                    </td>
+                    <td>@Model.ProductosDisponibles[i].Precio_unitario.ToString("C")</td>
+                    <td>
+                        <input asp-for="ProductosDisponibles[@i].Cantidad" class="form-control" min="0" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+    <a asp-controller="Pedidos" asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

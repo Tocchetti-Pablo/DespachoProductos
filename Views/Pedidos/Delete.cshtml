@@ -1,0 +1,29 @@
+﻿@model AppWebDespachos.Models.Pedido
+
+@{
+    ViewData["Title"] = "Baja pedido";
+}
+
+<h2>Eliminar Pedido</h2>
+
+@if (Model.Estado != "Pendiente")
+{
+    <div class="alert alert-warning">
+        No se puede eliminar un pedido que no esté en estado Pendiente.
+    </div>
+}
+else
+{
+    <div>
+        <h4>Pedido #@Model.Id_pedido</h4>
+        <p>Cliente: @Model.Cliente?.Razon_social</p>
+        <p>Fecha: @Model.Fecha.ToString("dd/MM/yyyy")</p>
+        <p>Total: @("$" + Model.Total.ToString("N2"))</p>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id_pedido" />
+            <button type="submit" class="btn btn-danger">DESHACER PEDIDO</button>
+            <a asp-controller="Pedidos" asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+}

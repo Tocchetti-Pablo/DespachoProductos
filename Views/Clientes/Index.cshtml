@@ -1,0 +1,88 @@
+﻿@model IEnumerable<AppWebDespachos.Models.Cliente>
+
+@{
+    ViewData["Title"] = "ABM CLIENTES";
+}
+
+<h1>ABM CLIENTES</h1>
+
+
+<p class="mt-5 mb-5">
+    <a asp-action="Create" class="btn btn-success">Nuevo cliente</a>
+</p>
+<h3 class="fw-bold text-center">LISTA DE CLIENTES</h3>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Razon_social)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cuit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Telefono)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Habilitado)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Usuario)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                    <tr>
+
+                        <td style="white-space: normal; word-break: break-word;">
+                            @Html.DisplayFor(modelItem => item.Razon_social)
+                        </td>
+                        <td style="max-width: 160px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="@item.Descripcion">
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cuit)
+                        </td>
+                        <td style="max-width: 160px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="@item.Email">
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Telefono)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Habilitado)
+                        </td>
+                        <td style="max-width: 160px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="@($" {item.Usuario.Apellido}, {item.Usuario.Nombre}")">
+                            @($"{item.Usuario.Apellido}, {item.Usuario.Nombre}")
+                        </td>
+
+                
+                        <td style="white-space: nowrap;">
+                            <div class="d-flex justify-content-start gap-2 flex-wrap">
+                                <a asp-action="Edit" asp-route-id="@item.Id_cliente" class="btn btn-warning btn-sm me-1 w-auto">Editar</a>
+                                <a asp-action="Details" asp-route-id="@item.Id_cliente" class="btn btn-secondary btn-sm me-1 w-auto text-white">Ver detalles</a>
+                                    @if (item.Habilitado)
+                                    {
+                                    <a asp-action="Delete" asp-route-id="@item.Id_cliente" class="btn btn-danger btn-sm w-auto">Inhabilitar</a>
+                                    }
+                                    else
+                                    {
+                                    <a asp-action="Delete" asp-route-id="@item.Id_cliente" class="btn btn-success btn-sm w-auto">Habilitar</a>
+                                    }
+                            </div>
+                        </td>
+                    </tr>
+             }
+        </tbody>
+    </table>
+</div>

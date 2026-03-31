@@ -1,0 +1,78 @@
+﻿@model IEnumerable<AppWebDespachos.Models.Producto>
+
+@{
+    ViewData["Title"] = "ABM PRODUCTOS";
+}
+
+<h1>ABM PRODUCTOS</h1>
+
+<p class="mt-5 mb-5">
+    <a asp-action="Create" class="btn btn-success">Nuevo producto</a>
+</p>
+<h3 class="fw-bold text-center">LISTA DE PRODUCTOS</h3>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Stock)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Precio_unitario)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Habilitado)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Usuario)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Stock)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Precio_unitario)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Habilitado)
+                        </td>
+                        <td class="text-nowrap">
+                            @($"{item.Usuario.Apellido}, {item.Usuario.Nombre}")
+                        </td>
+                        <td>
+                        <div class="d-flex justify-content-start gap-2 flex-wrap">
+                            <a asp-action="Edit" asp-route-id="@item.Id_producto" class="btn btn-warning btn-sm me-1 w-auto">Editar</a>
+                            <a asp-action="Details" asp-route-id="@item.Id_producto" class="btn btn-secondary btn-sm me-1 w-auto text-white">Detalles</a>
+                                @if (item.Habilitado)
+                                {
+                                <a asp-action="Delete" asp-route-id="@item.Id_producto" class="btn btn-danger btn-sm w-auto">Inhabilitar</a>
+                                }
+                                else
+                                {
+                                    <a asp-action="Delete" asp-route-id="@item.Id_producto" class="btn btn-success btn-sm w-auto">Habilitar</a>
+                                }
+					        </div>
+                        </td>
+                    </tr>
+              }
+        </tbody>
+    </table>
+</div>

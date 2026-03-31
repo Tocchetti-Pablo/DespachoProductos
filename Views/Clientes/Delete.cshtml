@@ -1,0 +1,52 @@
+﻿@model AppWebDespachos.Models.Cliente
+
+@{
+    ViewData["Title"] = Model.Habilitado ? "Inhabilitar Cliente" : "Habilitar Cliente";
+}
+
+
+<h1>@(Model.Habilitado ? "Inhabilitar Cliente" : "Habilitar Cliente")</h1>
+<h3 class="fw-bold text-center">Detalles cliente</h3>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-3">Razón social</dt>
+    <dd class="col-sm-9">@Model.Razon_social</dd>
+
+    <dt class="col-sm-3">CUIT</dt>
+    <dd class="col-sm-9">@Model.Cuit</dd>
+
+    <dt class="col-sm-3">Email</dt>
+    <dd class="col-sm-9">@Model.Email</dd>
+
+    <dt class="col-sm-3">Teléfono</dt>
+    <dd class="col-sm-9">@Model.Telefono</dd>
+
+    <dt class="col-sm-3">Usuario</dt>
+    <dd class="col-sm-9">@Model.Usuario.Apellido @Model.Usuario.Nombre</dd>
+</dl>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id_cliente" />
+
+    <div class="form-check ">
+        <!-- Checkbox deshabilitado para solo mostrar estado -->
+        <input class="form-check-input" asp-for="Habilitado" disabled />
+        <label class="form-check-label" asp-for="Habilitado">Cliente habilitado</label>
+    </div>
+    <h5 class="text @(Model.Habilitado ? "text-danger" : "text-success") fw-bold m-1">
+        @(Model.Habilitado ? "¿Deseás inhabilitar este cliente?" : "¿Deseás habilitar este cliente?")
+    </h5>
+    <!-- El botón envía el formulario para cambiar estado -->
+    <button type="submit" class="btn @(Model.Habilitado ? "btn-danger" : "btn-success")">
+        @(Model.Habilitado ? "Inhabilitar" : "Habilitar")
+    </button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

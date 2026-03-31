@@ -1,0 +1,59 @@
+﻿@model AppWebDespachos.Models.Cliente
+
+@{
+    ViewData["Title"] = "Editar cliente";
+}
+
+<h1>MODIFICACION CLIENTES</h1>
+<h3 class="fw-bold text-center">Cliente a modificar</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id_cliente" />
+            <div class="form-group">
+                <label asp-for="Razon_social" class="control-label">Razón social</label>
+                <input asp-for="Razon_social" class="form-control" />
+                <span asp-validation-for="Razon_social" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label">Descripción</label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cuit" class="control-label">CUIT</label>
+                <input asp-for="Cuit" class="form-control" />
+                <span asp-validation-for="Cuit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">Dirección de correo electrónico</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefono" class="control-label">Número de celular (sin 0 ni 15)</label>
+                <input asp-for="Telefono" class="form-control" />
+                <span asp-validation-for="Telefono" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <input class="form-check-input mt-2" asp-for="Habilitado" disabled />
+                <label class="form-check-label" asp-for="Habilitado"></label>
+            </div>
+            <div class="form-group d-flex m-2">
+                <button type="submit" class="btn btn-primary me-1">GUARDAR</button>
+                <a asp-action="Index" class="btn btn-secondary me-1 ">Regresar a la lista de clientes</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
